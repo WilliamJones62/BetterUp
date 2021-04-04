@@ -1,0 +1,5 @@
+<h2>Import Coaches</h2>
+<%= form_tag import_coaches_csv_index_path, multipart: true do %>
+  <%= file_field_tag :file %>
+  <%= submit_tag "import" %>
+<% end %>

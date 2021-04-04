@@ -1,0 +1,42 @@
+<label for="client">Please enter your name:</label>
+<input type="text" name="client" id="client" value="" oninput="client()">
+
+<label for="timezone">Choose a timezone:</label>
+<select name="timezone" id="timezone" onchange="timezones()">
+  <option value="eastern">Eastern</option>
+  <option value="central">Central</option>
+  <option value="mountain">Mountain</option>
+  <option value="pacific" selected>Pacific</option>
+  <option value="alaska">Alaska</option>
+</select>
+
+<label for="name">Choose a coach:</label>
+<%=select("name", "coach_id", @coaches, { include_blank: true }, {:onchange=> ("coaches()")}) %>
+
+<br> <br>
+<table id="normal_dt"  class="stripe" class="mytable" class="display" cellspacing="0" >
+  <thead>
+    <tr>
+      <th hidden>id</th>
+      <th hidden>gmt</th>
+      <th hidden>client</th>
+      <th>Coach</th>
+      <th>Day</th>
+      <th>Appointment</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% i = 1 %>
+    <% @coach_appointments.each do |appointment| %>
+      <tr id="<%= 'appointment_id' + appointment.id.to_s %>" style="visibility:collapse;">
+        <td id="<%= 'id_id' + appointment.id.to_s %>" hidden><%= appointment.id %></td>
+        <td id="<%= 'gmt_id' + appointment.id.to_s %>" hidden><%= appointment.gmt_hour %></td>
+        <td id="<%= 'client_id' + appointment.id.to_s %>" hidden><%= appointment.client %></td>
+        <td id="<%= 'name_id' + appointment.id.to_s %>"><%= appointment.name %></td>
+        <td id="<%= 'day_id' + appointment.id.to_s %>"><%= appointment.day_of_week %></td>
+        <td> <button type="button" name="time_id" id="<%= 'time_id' + appointment.id.to_s %>"  onclick="updateAppointment(<%= appointment.id %>)"> <%= appointment_time(appointment.gmt_hour, appointment.gmt_min) %> </button> </td>
+      </tr>
+      <% i += 1 %>
+    <% end %>
+  </tbody>
+</table>
