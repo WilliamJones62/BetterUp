@@ -8,7 +8,7 @@ module Api
         if coach_appointment.update(coach_appointment_params)
           head :no_content
         else
-          render json: { error: airline.errors.messages }, statue: 422
+          render json: { error: coach_appointment.errors.messages }, statue: 422
         end
       end
 
